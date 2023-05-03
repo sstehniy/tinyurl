@@ -100,7 +100,7 @@ func closeDb() {
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Failed to load .env")
+		log.Println("Failed to load .env")
 	}
 	initDb()
 	//defer closeDb()
@@ -114,8 +114,14 @@ func main() {
 	// Register the POST route for creating short URLs
 	router.POST("/", handleCreateShortUrl)
 	router.GET("/:id", handleRedirectById)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5000"
+		log.Println("Using default port 5000")
+	}
+	address := ":" + port
 	// Start the server on port 5000
-	if err := router.Run(":5000"); err != nil {
+	if err := router.Run(address); err != nil {
 		// Log an error and exit if the server fails to start
 		log.Fatal("Failed to start the server")
 	}
