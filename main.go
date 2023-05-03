@@ -42,13 +42,13 @@ func handleCreateShortUrl(c *gin.Context) {
 			log.Fatal("Failed to get inserted id")
 		}
 		convertedId := idToBase62(id)
-		c.String(http.StatusOK, "http://localhost:5000/"+string(convertedId))
+		c.String(http.StatusOK, os.Getenv("HOST")+string(convertedId))
 		return
 	}
 	foundId := foundUrl.Id
 	convertedId := idToBase62(foundId)
 
-	c.String(http.StatusOK, "http://localhost:5000/"+string(convertedId))
+	c.String(http.StatusOK, os.Getenv("HOST")+string(convertedId))
 
 	//if err != nil {
 	//	c.String(http.StatusBadRequest, "Error in request")
