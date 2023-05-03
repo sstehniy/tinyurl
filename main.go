@@ -115,6 +115,7 @@ func main() {
 	router.POST("/", handleCreateShortUrl)
 	router.GET("/:id", handleRedirectById)
 	port := os.Getenv("PORT")
+	log.Println("Port: " + port)
 	if port == "" {
 		port = "5000"
 		log.Println("Using default port 5000")
